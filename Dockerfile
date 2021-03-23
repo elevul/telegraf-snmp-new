@@ -1,6 +1,5 @@
 FROM telegraf
 USER root
-WORKDIR /root
 
 LABEL   maintainer="elevul" \
         name="Telegraf-SNMP" \
