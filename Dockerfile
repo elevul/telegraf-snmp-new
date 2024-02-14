@@ -6,7 +6,7 @@ LABEL maintainer="elevul" \
       version="0.10"
 
 # Enable non-free packages, update package index, and install SNMP packages
-RUN sed -i 's/main/main contrib non-free/g' /etc/apt/sources.list && \
+RUN sed -i -e's/ main/ main contrib non-free/g' /etc/apt/sources.list && \
     apt-get update && apt-get install -y \
     snmp-mibs-downloader \
     snmp \
