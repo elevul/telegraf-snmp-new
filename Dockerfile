@@ -1,4 +1,4 @@
-FROM telegraf:latest
+FROM telegraf
 USER root
 
 LABEL maintainer="elevul" \
