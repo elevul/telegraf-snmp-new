@@ -1,12 +1,17 @@
-FROM telegraf
+# Start from the Telegraf image based on Debian Bookworm
+FROM telegraf:latest
 USER root
 
-LABEL   maintainer="elevul" \
-        name="Telegraf-SNMP" \
-        version="0.10"
+LABEL maintainer="elevul" \
+      name="Telegraf-SNMP" \
+      version="0.10"
 
-RUN printf "deb http://deb.debian.org/debian stretch main contrib non-free\ndeb-src http://deb.debian.org/debian stretch main contrib non-free\ndeb http://security.debian.org/debian-security/ stretch/updates main contrib non-free\ndeb-src http://security.debian.org/debian-security/ stretch/updates main contrib non-free\ndeb http://deb.debian.org/debian stretch-updates main contrib non-free\ndeb-src http://deb.debian.org/debian stretch-updates main contrib non-free" >> /etc/apt/sources.list && \
-                apt-get update && apt-get install -y snmp-mibs-downloader snmp && \
-                apt-get clean && \
-                rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+# Install SNMP packages
+RUN apt-get update && apt-get install -y \
+    snmp-mibs-downloader \
+    snmp \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Switch back to the telegraf user
 USER telegraf
